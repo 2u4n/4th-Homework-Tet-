@@ -17,21 +17,9 @@ public class DungeonGame {
 
 //        //player's info
         Protagonist player1 = new Protagonist(2,2,60,50,200, 2);
-//        int px = 2;
-//        int py = 2;
-//        int patk = 60;
-//        int pdef = 50;
-//        int php = 200;
-//        int pdex = 2;
 
         //monster's info
         Monster monster1 = new Monster(1,3,60,30,120,3);
-//        int mx = 1;
-//        int my = 1;
-//        int matk = 60;
-//        int mdef = 30;
-//        int mhp = 120;
-//        int mdex = 3;
 
         //board's dimension
         int m = 5;
