@@ -30,13 +30,20 @@ public class WallTester
 //        Wall newWall2 = ;
 
         // 3. Add vao List
-        walls.add(new Wall(1,2));
-        walls.add(new Wall(2, 3));
-        Wall temp = walls.get(0);
-        if (temp.match( 2, 2))
-        {
-            System.out.println("Hura");
-        }
+        walls.add(new Wall(3,2));
+        walls.add(new Wall(0, 3));
+        walls.add(new Wall(2,3));
+        walls.add(new Wall(3, 3));
+        walls.add(new Wall(0, 2));
+        walls.add(new Wall(0, 1));
+
+//        Wall temp = walls.get(0);
+////        if (temp.match( 2, 2))
+////        {
+////            System.out.println("Hura");
+////        }
+
+
 
         System.out.println(walls);
 //        System.out.println(newWall);

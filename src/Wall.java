@@ -11,7 +11,6 @@ public class Wall
         this.x = x;
         this.y = y;
     }
-
     public boolean match (int x, int y)
     {
         if(this.x == x && this.y == y)
@@ -28,4 +27,6 @@ public class Wall
     {
         return String.format("{x = %s, y = %s}", x, y);
     }
+
+
 }
