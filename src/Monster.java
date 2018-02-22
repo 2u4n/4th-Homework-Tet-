@@ -23,10 +23,10 @@ public class Monster {
     }
     public boolean hasMonster(){
         if(this.hp == 0) {
-            return true;
+            return false;
         }
         else {
-            return false;
+            return true;
         }
     }
 }

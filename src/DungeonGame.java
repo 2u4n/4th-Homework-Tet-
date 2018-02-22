@@ -10,6 +10,7 @@ public class DungeonGame {
         walls.add(new Wall(3, 3));
         walls.add(new Wall(0, 2));
         walls.add(new Wall(0, 1));
+        walls.add(new Wall(4, 3));
 
         //vector
         int vx = 0;
@@ -24,6 +25,9 @@ public class DungeonGame {
         //board's dimension
         int m = 5;
         int n = 5;
+
+        //vé xe bus
+        ArrayList<String> board = new ArrayList<>();
 
         //turn
         int turn = 40;
@@ -51,22 +55,36 @@ public class DungeonGame {
                     for (Wall wall : walls) {
                         if (wall.match(x,y)) {
                             System.out.print("W ");
+                            x++;
                         }
                     }
                     if (player1.match(x,y)) {
                         System.out.print("P ");
+                        board.add("P");
                     }
                     else if (monster1.match(x,y) && monster1.hasMonster()) {
                         System.out.print("M ");
+                        board.add("M");
                     }
                     else if (key1.match(x,y) && !hasKey) {
                         System.out.print("K ");
+                        board.add("K");
                     }
                     else if (exit1.match(x,y)){
                         System.out.print("E ");
+                        board.add("E");
                     }
-                    else{
+                    else {
                         System.out.print("- ");
+                        board.add("-");
+                    }
+                    //check if player hits walls
+                    for (Wall wall : walls) {
+                        if (wall.match(x,y)) {
+                            if(player1.match(x,y)){
+
+                            }
+                        }
                     }
                 }
                 System.out.print("\n");
@@ -76,57 +94,33 @@ public class DungeonGame {
             vx = 0;
             vy = 0;
             if (move.equalsIgnoreCase("w")) {
-                vy = -1;
+                player1.goUp();
             } else if (move.equalsIgnoreCase("s")) {
-                vy = 1;
+                player1.goDown();
             } else if (move.equalsIgnoreCase("a")) {
-                vx = -1;
+                player1.goLeft();
             } else if (move.equalsIgnoreCase("d")) {
-                vx = 1;
+                player1.goRight();
             }
 
-//            px += vx;
-//            py += vy;
-//
-//            if (px < 0) px = 0;
-//            if (px >= n) px = n - 1;
-//            if (py < 0) py = 0;
-//            if (py >= m) py = m - 1;
+            //check to make sure it does not go out of bound
+            player1.checkWallX();
+            player1.checkWallY();
 
-//            //Cho quái vật di chuyển qua lại
-//            if (!chamTuongPhai)
-//            {
-//                mx++;
-//            }
-//            if (mx > 4)
-//            {
-//                chamTuongPhai = true;
-//                mx--;
-//            }
-//            if (chamTuongPhai)
-//            {
-//                mx--;
-//            }
-//            if (mx < 0)
-//            {
-//                mx += 2;
-//                chamTuongPhai = false;
+            //check for hitting walls situations
+//            for (Wall wall : walls) {
+//                if (wall.match(x,y)) {
+//                    System.out.print("W ");
+//                    x++;
+//                }
 //            }
 
-//            if (px == wx1 && py == wy1)
-//            {
-//                px -= px;
-//                py -= py;
-//            }
-
-//            if (move.equals("1")) {
-//                loop = false;
-//                System.out.println("You have successfully stopped");
-//            } else if (px < 0 || py < 0) {
-//                System.out.println("You cannot go out of bound");
-//            } else if (!move.equalsIgnoreCase("w") && !move.equalsIgnoreCase("s") && !move.equalsIgnoreCase("a") && !move.equalsIgnoreCase("d") && !move.equalsIgnoreCase("1")) {
-//                System.out.println("You have entered an invalid input");
-//            }
+            if (move.equals("1")) {
+                loop = false;
+                System.out.println("You have successfully stopped");
+            } else if (!move.equalsIgnoreCase("w") && !move.equalsIgnoreCase("s") && !move.equalsIgnoreCase("a") && !move.equalsIgnoreCase("d") && !move.equalsIgnoreCase("1")) {
+                System.out.println("You have entered an invalid input");
+            }
 //            if (px == kx && py == ky) {
 //                hasKey = true;
 //                System.out.println("You have found the key");
@@ -196,6 +190,7 @@ public class DungeonGame {
 //                loop = false;
 //            }
         }
+        System.out.println(board.toString());
     }
 }
 

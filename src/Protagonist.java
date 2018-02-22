@@ -21,4 +21,36 @@ public class Protagonist {
             return false;
         }
     }
+
+    public int goUp(){
+        return y--;
+    }
+    public int goDown(){
+        return y++;
+    }
+    public int goLeft(){
+        return x--;
+    }
+    public int goRight(){
+        return x++;
+    }
+    public int checkWallX(){
+        if(x < 0){
+            x = 0;
+        }
+        else if (x >= 5) {
+            x = 4;
+        }
+        return x;
+    }
+
+    public int checkWallY(){
+        if(y < 0){
+            y = 0;
+        }
+        else if (y >= 5){
+            y = 4;
+        }
+        return y;
+    }
 }

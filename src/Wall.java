@@ -23,6 +23,10 @@ public class Wall
         }
     }
 
+    public int getX() {
+        return x;
+    }
+
     public String toString()
     {
         return String.format("{x = %s, y = %s}", x, y);
