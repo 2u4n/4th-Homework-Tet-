@@ -51,11 +51,9 @@ public class PacManGame {
             System.out.println("Player's position: " + "x:" + px + " y:" + py);
 
             //check to see if food has been eaten yet
-            if(!hasFood1 && !hasFood2 && !hasFood3){
-                board[fx1][fy1]= 'F';
-                board[fx2][fy2] = 'F';
-                board[fx3][fy3] = 'F';
-            }
+            if(!hasFood1) board[fx1][fy1] = 'F';
+            if(!hasFood2) board[fx2][fy2] = 'F';
+            if(!hasFood3) board[fx3][fy3] = 'F';
 
             //assigning ghost with random values
             ghost1.x = randomGen.nextInt(m);
@@ -86,9 +84,9 @@ public class PacManGame {
             //check food eating condition
             if (px == fx1 && py == fy1) {
                 hasFood1 = true;
-            } else if (px == fx2 && py == fy2) {
+            }if (px == fx2 && py == fy2) {
                 hasFood2 = true;
-            } else if (px == fx3 && py == fy3) {
+            }if (px == fx3 && py == fy3) {
                 hasFood3 = true;
             }
 
