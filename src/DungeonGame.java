@@ -16,11 +16,16 @@ public class DungeonGame {
         int vx = 0;
         int vy = 0;
 
+        //Redbull's info
+        RedBull redbull = new RedBull(1,1);
+        boolean hasRedbull = false;
+
         //player's info
         Protagonist player1 = new Protagonist(2,2,60,50,200, 2);
 
         //monster's info
         Monster monster1 = new Monster(1,3,60,30,120,3);
+        boolean hasMonster = false;
 
         //board's dimension
         int m = 5;
@@ -44,8 +49,8 @@ public class DungeonGame {
         while (loop) {
             turn--;
             //print game play
-//            System.out.println("Your player: " + "ATK: " + patk + " DEF: " + pdef + " HP: " + php + " DEXT: " + pdex);
-//            System.out.println("The enemy: " + "ATK: " + matk + " DEF: " + mdef + " HP: " + mhp + " DEXT: " + mdex);
+            System.out.println("Your player: " + "ATK: " + player1.atk + " DEF: " + player1.def + " HP: " + player1.hp + " DEXT: " + player1.dex);
+            System.out.println("The enemy: " + "ATK: " + monster1.atk + " DEF: " + monster1.def + " HP: " + monster1.hp + " DEXT: " + monster1.dex);
             System.out.println("Don't exceed 40 turns!");
             for (int y = 0; y < m; y++) {
                 for (int x = 0; x < n; x++) {
@@ -69,22 +74,18 @@ public class DungeonGame {
                         else if (exit1.match(x,y)){
                             System.out.print("E ");
                         }
+                        else if (redbull.match(x,y) && !hasRedbull){
+                            System.out.print("R ");
+                        }
                         else {
                             System.out.print("- ");
-                        }
-                    }
-
-                    //check if player hits walls
-                    for (Wall wall : walls) {
-                        if (wall.match(x,y)) {
-                            if(player1.match(x,y)){
-
-                            }
                         }
                     }
                 }
                 System.out.print("\n");
             }
+
+            //movement
             System.out.println("Press W to move up; S to move down, A to move left, D to move right, 1 to stop");
             String move = keyboardScanner.next();
             vx = 0;
@@ -105,87 +106,99 @@ public class DungeonGame {
 
 
             //check for hitting walls situations
-//            for (Wall wall : walls) {
-//                if (wall.match(x,y)) {
-//                    System.out.print("W ");
-//                    x++;
-//                }
-//            }
+            for (Wall wall : walls) {
+                if (player1.match(wall.x,wall.y)) {
+                    System.out.println("You cannot go through the wall!");
+
+                }
+            }
 
             if (move.equals("1")) {
                 loop = false;
                 System.out.println("You have successfully stopped");
-            } else if (!move.equalsIgnoreCase("w") && !move.equalsIgnoreCase("s") && !move.equalsIgnoreCase("a") && !move.equalsIgnoreCase("d") && !move.equalsIgnoreCase("1")) {
+            }
+            else if (!move.equalsIgnoreCase("w") && !move.equalsIgnoreCase("s") && !move.equalsIgnoreCase("a") && !move.equalsIgnoreCase("d") && !move.equalsIgnoreCase("1")) {
                 System.out.println("You have entered an invalid input");
             }
-//            if (player1. {
-//                hasKey = true;
-//                System.out.println("You have found the key");
 
-//            }
-//            if (px == ex && py == ey) {
-//                if (hasKey) {
-//                    loop = false;
-//                    System.out.println("You have won!");
-//                    System.out.println("You have completed in " + (40 - turn) + " steps.");
-//                } else {
-//                    System.out.println("You need to find the key first");
-//                }
-//            }
-//            if (px == mx && py == my) {
-//                System.out.println("You have encountered a monster! Fight or Flight???");
-//                String choice = keyboardScanner.next();
-//                if (choice.equalsIgnoreCase("Fight")) {
-//                    int dieAtk = (int) (Math.random() * 5 + 1);
-//                    int dieDex = (int) (Math.random() * 5 + 1);
-//                    if (dieAtk > 3) {
-//                        if (dieDex >= pdex) {
-//                            mhp = mhp - (patk - mdef);
-//                            php = php - (matk - pdef);
-//                            System.out.println("Dexterity is: " + dieDex + " which is your accepted dexterity.");
-//                            System.out.println("You have rolled: " + dieAtk + ". You have inflicted : " + (patk - mdef) + " damage to the enemy.");
-//                            System.out.println("It also deals " + (matk - pdef) + " damage to you");
-//                            System.out.println("You now have " + php + " HP left.");
-//                            System.out.println("It now has " + mhp + " HP left.");
-//                            py = py - 1;
-//                        } else if (dieDex < pdex) {
-//                            System.out.println("Dexterity is: " + dieDex + " which is lower than your accepted dexterity." + "Unfortunately, you have missed.");
-//                            php = php - (matk - pdef);
-//                            System.out.println("The enemy has inflicted " + (matk - pdef) + " damage to you");
-//                            System.out.println("You now have " + php + " HP left.");
-//                            py = py - 1;
-//                        }
-//                        if (mhp <= 0) {
-//                            hasMonster = true;
-//                            System.out.println("You have slayed the enemy");
-//                        }
-//                        if (php <= 0) {
-//                            System.out.println("The enemy slayed you. You died!");
-//                            loop = false;
-//                        }
-//
-//                    } else if (dieAtk <= 3) {
-//                        php = php - (matk - pdef);
-//                        py = py - 1;
-//                        System.out.println("You have rolled: " + dieAtk + ". The enemy defeated you. You lost " + (matk - pdef) + " HP");
-//                        System.out.println("You have: " + php + " HP left.");
-//                        if (php <= 0) {
-//                            System.out.println("The enemy slayed you. You died!");
-//                            loop = false;
-//                        }
-//                    }
-//
-//                } else if (choice.equalsIgnoreCase("Flight")) {
-//                    py = py - 2;
-//                } else if (!choice.equalsIgnoreCase("fight") && !choice.equalsIgnoreCase("flight") && !choice.equalsIgnoreCase("1")) {
-//                    System.out.println("You have entered a wrong move. You stay at the same place.");
-//                    py = py - 1;
-//                }
-//            }
-//            if (turn <= 0) {
-//                System.out.println("You have exceeded the allowed steps. You have lost");
-//                loop = false;
-//            }
+            //check to see if player gets redbull yet
+            if(player1.x == redbull.x && player1.y == redbull.y){
+                player1.atk = player1.atk*2;
+                System.out.println("You have collected a redbull. Your attack point is doubled!");
+                hasRedbull = true;
+            }
+
+            //grab key
+            if (player1.x == key1.x && player1.y == key1.y){
+                hasKey = true;
+                System.out.println("You have found the key");
+            }
+
+            //check to see if win
+            if (player1.x == exit1.x && player1.y == exit1.y){
+                if (hasKey){
+                    loop = false;
+                    System.out.println("You have won!");
+                    System.out.println("You have completed in " + (40 - turn) + " steps.");
+                }
+                else if(!hasKey){
+                    System.out.println("You need to find the key first");
+                }
+            }
+            if (player1.x == monster1.x && player1.y == monster1.y) {
+                System.out.println("You have encountered a monster! Fight or Flight???");
+                String choice = keyboardScanner.next();
+                if (choice.equalsIgnoreCase("Fight")) {
+                    int dieAtk = (int) (Math.random() * 5 + 1);
+                    int dieDex = (int) (Math.random() * 5 + 1);
+                    if (dieAtk > 3) {
+                        if (dieDex >= player1.dex) {
+                            monster1.hp = monster1.hp - (player1.atk - monster1.def);
+                            player1.hp = player1.hp - (monster1.atk - player1.def);
+                            System.out.println("Dexterity is: " + dieDex + " which is your accepted dexterity.");
+                            System.out.println("You have rolled: " + dieAtk + ". You have inflicted : " + (player1.atk - monster1.def) + " damage to the enemy.");
+                            System.out.println("It also deals " + (monster1.atk - player1.def) + " damage to you");
+                            System.out.println("You now have " + player1.hp + " HP left.");
+                            System.out.println("It now has " + monster1.hp + " HP left.");
+                            player1.y = player1.y - 1;
+                        } else if (dieDex < player1.dex) {
+                            System.out.println("Dexterity is: " + dieDex + " which is lower than your accepted dexterity." + "Unfortunately, you have missed.");
+                            player1.hp = player1.hp - (monster1.atk - player1.def);
+                            System.out.println("The enemy has inflicted " + (monster1.atk - player1.def) + " damage to you");
+                            System.out.println("You now have " + player1.hp + " HP left.");
+                            player1.y = player1.y - 1;
+                        }
+                        if (monster1.hp <= 0) {
+                            hasMonster = true;
+                            System.out.println("You have slayed the enemy");
+                        }
+                        if (player1.hp <= 0) {
+                            System.out.println("The enemy slayed you. You died!");
+                            loop = false;
+                        }
+
+                    } else if (dieAtk <= 3) {
+                        player1.hp = player1.hp - (monster1.atk - player1.def);
+                        player1.y = player1.y - 1;
+                        System.out.println("You have rolled: " + dieAtk + ". The enemy defeated you. You lost " + (monster1.atk - player1.def) + " HP");
+                        System.out.println("You have: " + player1.hp + " HP left.");
+                        if (player1.hp <= 0) {
+                            System.out.println("The enemy slayed you. You died!");
+                            loop = false;
+                        }
+                    }
+
+                } else if (choice.equalsIgnoreCase("Flight")) {
+                    player1.y = player1.y - 2;
+                } else if (!choice.equalsIgnoreCase("fight") && !choice.equalsIgnoreCase("flight") && !choice.equalsIgnoreCase("1")) {
+                    System.out.println("You have entered a wrong move. You stay at the same place.");
+                    player1.y = player1.y - 1;
+                }
+            }
+            if (turn <= 0) {
+                System.out.println("You have exceeded the allowed steps. You have lost");
+                loop = false;
+            }
         }
     }
 }
