@@ -16,7 +16,7 @@ public class DungeonGame {
         int vx = 0;
         int vy = 0;
 
-//        //player's info
+        //player's info
         Protagonist player1 = new Protagonist(2,2,60,50,200, 2);
 
         //monster's info
@@ -25,9 +25,6 @@ public class DungeonGame {
         //board's dimension
         int m = 5;
         int n = 5;
-
-        //vé xe bus
-        ArrayList<String> board = new ArrayList<>();
 
         //turn
         int turn = 40;
@@ -52,32 +49,31 @@ public class DungeonGame {
             System.out.println("Don't exceed 40 turns!");
             for (int y = 0; y < m; y++) {
                 for (int x = 0; x < n; x++) {
+                    boolean hasWall = false;
                     for (Wall wall : walls) {
                         if (wall.match(x,y)) {
+                            hasWall = true;
                             System.out.print("W ");
-                            x++;
                         }
                     }
-                    if (player1.match(x,y)) {
-                        System.out.print("P ");
-                        board.add("P");
+                    if (!hasWall){
+                        if (player1.match(x,y)) {
+                            System.out.print("P ");
+                        }
+                        else if (monster1.match(x,y) && monster1.hasMonster()) {
+                            System.out.print("M ");
+                        }
+                        else if (key1.match(x,y) && !hasKey) {
+                            System.out.print("K ");
+                        }
+                        else if (exit1.match(x,y)){
+                            System.out.print("E ");
+                        }
+                        else {
+                            System.out.print("- ");
+                        }
                     }
-                    else if (monster1.match(x,y) && monster1.hasMonster()) {
-                        System.out.print("M ");
-                        board.add("M");
-                    }
-                    else if (key1.match(x,y) && !hasKey) {
-                        System.out.print("K ");
-                        board.add("K");
-                    }
-                    else if (exit1.match(x,y)){
-                        System.out.print("E ");
-                        board.add("E");
-                    }
-                    else {
-                        System.out.print("- ");
-                        board.add("-");
-                    }
+
                     //check if player hits walls
                     for (Wall wall : walls) {
                         if (wall.match(x,y)) {
@@ -107,6 +103,7 @@ public class DungeonGame {
             player1.checkWallX();
             player1.checkWallY();
 
+
             //check for hitting walls situations
 //            for (Wall wall : walls) {
 //                if (wall.match(x,y)) {
@@ -121,10 +118,10 @@ public class DungeonGame {
             } else if (!move.equalsIgnoreCase("w") && !move.equalsIgnoreCase("s") && !move.equalsIgnoreCase("a") && !move.equalsIgnoreCase("d") && !move.equalsIgnoreCase("1")) {
                 System.out.println("You have entered an invalid input");
             }
-//            if (px == kx && py == ky) {
+//            if (player1. {
 //                hasKey = true;
 //                System.out.println("You have found the key");
-//
+
 //            }
 //            if (px == ex && py == ey) {
 //                if (hasKey) {
@@ -190,7 +187,6 @@ public class DungeonGame {
 //                loop = false;
 //            }
         }
-        System.out.println(board.toString());
     }
 }
 
